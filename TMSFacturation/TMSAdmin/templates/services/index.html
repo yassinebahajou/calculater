@@ -1,0 +1,186 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<title> TMS-AU Admin</title>
+	{% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+<!-- //font-awesome icons -->
+ <!-- js-->
+<script src="{% static 'js/jquery-1.11.1.min.js"></script>
+<script src="{% static 'js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css" media="all">
+<script src="{% static 'js/wow.min.js' %}"></script>
+	<script>
+		 new WOW().init();
+	</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="{% static 'js/metisMenu.min.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+<link href="{% static 'css/custom.css' %}" rel="stylesheet">
+<!--//Metis Menu -->
+
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		{% include 'sidebar.html' %}
+		<!-- header-starts -->
+		{% include 'headbar.html' %}
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<h3 class="title1">Articles </h3>
+				<div class="row" >
+					<a  href="ajouter/" type="submit" class="btn btn-info col-sm-12">Ajouter Service</a>
+				</div>
+                <div class="row stats-info widget-shadow">
+					<table class="table stats-table ">
+						<thead>
+							<tr>
+								<th>Code </th>
+								<th>Description</th>
+								<th>Qte</th>
+								<th>Price</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for service in myServices %}
+							<tr>
+								<th scope="row">{{service.codeS}}</th>
+								<td>{{service.descriptionS}}</td>
+								<td>{{service.QteS}}</td>
+								<td>{{service.priceS}}$
+									{%if service.unitS|length > 0 %}
+									/{{service.unitS}}
+									{%endif%}
+								</td>
+								<td>
+									<a  href="{{ service.codeS }}" type="submit" class="btn btn-default">Modifier</a>
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</div>
+		<!--footer-->
+		<div class="footer">
+		   <p>&copy; 2022 Fish Store Admin Panel. All Rights Reserved | Design by Myself</p>
+		</div>
+        <!--//footer-->
+	</div>
+	<!-- Classie -->
+		<script src="{% static 'js/classie.js'}"></script>
+		<script>
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				showLeftPush = document.getElementById( 'showLeftPush' ),
+				body = document.body;
+
+			showLeftPush.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( body, 'cbp-spmenu-push-toright' );
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+				disableOther( 'showLeftPush' );
+			};
+
+			function disableOther( button ) {
+				if( button !== 'showLeftPush' ) {
+					classie.toggle( showLeftPush, 'disabled' );
+				}
+			}
+		</script>
+	<!--scrolling js-->
+	<script src="{% static 'js/jquery.nicescroll.js'}"></script>
+	<script src="{% static 'js/scripts.js'}"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+   <script src="{% static 'js/bootstrap.js'}"> </script>
+</body>
+</html>
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    {% load static %}-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--    <link href="{% static 'style.css' %}" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Members</h1>-->
+
+<!--    <table border="1">-->
+<!--    {% for x in mymembers %}-->
+<!--    <tr>-->
+<!--        <td><a href="update/{{ x.id }}">{{ x.id }}</a></td>-->
+<!--        <td>{{ x.firstname }}</td>-->
+<!--        <td>{{ x.lastname }}</td>-->
+<!--        <td>{{ x.email }}</td>-->
+<!--        <td>{{ x.password }}</td>-->
+<!--        <td>{{ x.phonenumber }}</td>-->
+<!--        <td>{{ x.birthdate }}</td>-->
+<!--        <td>{{ x.disabled }}</td>-->
+<!--        <td><a href="disable/{{ x.id }}">Disable</a></td>-->
+<!--        <td><a href="delete/{{ x.id }}">delete</a></td>-->
+<!--    </tr>-->
+<!--    {% endfor %}-->
+<!--    </table>-->
+
+<!--    <p><a href="add/">Add member</a></p>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--<tr>-->
+<!--    <th scope="row">2</th>-->
+<!--    <td>Aliquam</td>-->
+<!--    <td><span class="label label-warning">New</span></td>-->
+<!--    <td><h5>35% <i class="fa fa-level-up"></i></h5></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--    <th scope="row">3</th>-->
+<!--    <td>Lorem ipsum</td>-->
+<!--    <td><span class="label label-danger">Overdue</span></td>-->
+<!--    <td><h5  class="down">40% <i class="fa fa-level-down"></i></h5></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--    <th scope="row">4</th>-->
+<!--    <td>Aliquam</td>-->
+<!--    <td><span class="label label-info">Out of stock</span></td>-->
+<!--    <td><h5>100% <i class="fa fa-level-up"></i></h5></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--    <th scope="row">5</th>-->
+<!--    <td>Lorem ipsum</td>-->
+<!--    <td><span class="label label-success">In progress</span></td>-->
+<!--    <td><h5 class="down">10% <i class="fa fa-level-down"></i></h5></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--    <th scope="row">6</th>-->
+<!--    <td>Aliquam</td>-->
+<!--    <td><span class="label label-warning">New</span></td>-->
+<!--    <td><h5>38% <i class="fa fa-level-up"></i></h5></td>-->
+<!--</tr>-->

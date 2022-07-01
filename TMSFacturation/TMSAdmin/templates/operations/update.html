@@ -1,0 +1,259 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<title> TMS-AU Admin</title>
+	{% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link href="{% static 'css/bootstrap.css' %}" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
+<!-- font CSS -->
+<!-- font-awesome icons -->
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+<!-- //font-awesome icons -->
+ <!-- js-->
+<script src="{% static 'js/jquery-1.11.1.min.js"></script>
+<script src="{% static 'js/modernizr.custom.js"></script>
+<!--webfonts-->
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<!--//webfonts-->
+<!--animate-->
+<link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css" media="all">
+<script src="{% static 'js/wow.min.js' %}"></script>
+	<script>
+		 new WOW().init();
+	</script>
+<!--//end-animate-->
+<!-- Metis Menu -->
+<script src="{% static 'js/metisMenu.min.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+<link href="{% static 'css/custom.css' %}" rel="stylesheet">
+<!--//Metis Menu -->
+<script>
+	function changeunit()
+	{
+<!--  		alert("Hello! I am an alert box!");-->
+  		var value = document.getElementById("service_select").value;
+<!--  		alert(value);-->
+  		setOption(value);
+	}
+	function setOption(value) {
+		var selectElement = document.getElementById("service_unit")
+		var options = selectElement.options;
+		for (var i = 0, optionsLength = options.length; i < optionsLength; i++) {
+			if (options[i].value == value) {
+				selectElement.selectedIndex = i;
+				return true;
+			}
+		}
+		return false;
+	}
+</script>
+</head>
+<body class="cbp-spmenu-push">
+	<div class="main-content">
+		{% include 'sidebar.html' %}
+		<!-- header-starts -->
+		{% include 'headbar.html' %}
+		<!-- //header-ends -->
+		<!-- main content start-->
+		<div id="page-wrapper">
+			<div class="main-page">
+				<h3 class="title1">
+					Operation N {{operation.operationID}} | Date: {{operation.dateO}} | Client: {{operation.clientO.nameC}}
+				</h3>
+				<div class="row" >
+					<form class="form-inline" action="modiferOperation/" method="post" style="margin-right:auto;margin-left:auto;">
+							 {% csrf_token %}
+						<div class="form-group col-sm-3">
+							<input name="time" type="time" class="form-control1" value="{{operation.timeO}}">
+
+						</div>
+						<div class="form-group col-sm-1">
+							<input name="Operation" value="{{operation.operationID}}" type="hidden" class="form-control1">
+							<input name="distance" type="number" class="form-control1" placeholder="Distance(KM)" value="{{operation.distanceO}}">
+						</div>
+						<div class="form-group col-sm-1">
+							<input  type="text" class="form-control1" value="KM">
+						</div>
+						<div class="form-group col-sm-3">
+							<input class="btn btn-default" type="submit" value="modifier operation">
+						</div>
+
+
+						</form>
+				</div>
+				<hr>
+				<div class="row" >
+					<form class="form-inline" action="ajouterService/" method="post" style="margin-right:auto;margin-left:auto;">
+							 {% csrf_token %}
+						<div class="form-group col-sm-3">
+							<select name="service"  class="form-control1" id="service_select" onchange="changeunit()">
+								<option value="0">-- Services --</option>
+								{%for service in services %}
+									<option value="{{service.codeS}}">{{service.codeS}} - {{service.descriptionS}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="form-group col-sm-2">
+							<input name="Operation" value="{{operation.operationID}}" type="hidden" class="form-control1">
+							<input name="Qte" type="number" class="form-control1" placeholder="Qte">
+						</div>
+
+						<div class="form-group col-sm-1">
+							<select name="country"  class="form-control1" id="service_unit" disabled>
+								<option value="0">-- Units --</option>
+								{%for service in services %}
+									<option value="{{service.codeS}}">{{service.unitS}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="form-group col-sm-3">
+							<input class="btn btn-default" type="submit" value="ajouter service">
+						</div>
+
+
+						</form>
+				</div>
+                <div class="row stats-info widget-shadow">
+					<table class="table stats-table ">
+						<thead>
+							<tr>
+								<th>Service </th>
+								<th>Quantite </th>
+								<th>prix par unite</th>
+								<th>prix total </th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for input in inputs %}
+							<tr>
+								<th >{{input.serviceOI.codeS}}</th>
+								<td>{{input.QteOI}}</td>
+								<td>{{input.priceOI}}</td>
+								<td>{{input.total_priceOI}}</td>
+								<td>
+									<a  href="supprimerOI/{{operation.operationID}}/{{ input.operation_inputID }}" type="submit" class="btn btn-danger">Supprimer</a>
+								</td>
+							</tr>
+							{% endfor %}
+							<tr>
+								<th colspan="4">Cout Total: </th>
+								<td>
+									{{operation.total_costO}} USD
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</div>
+		<!--footer-->
+		<div class="footer">
+		   <p>&copy; 2022 Fish Store Admin Panel. All Rights Reserved | Design by Myself</p>
+		</div>
+        <!--//footer-->
+	</div>
+	<!-- Classie -->
+		<script src="{% static 'js/classie.js'}"></script>
+		<script>
+			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+				showLeftPush = document.getElementById( 'showLeftPush' ),
+				body = document.body;
+
+			showLeftPush.onclick = function() {
+				classie.toggle( this, 'active' );
+				classie.toggle( body, 'cbp-spmenu-push-toright' );
+				classie.toggle( menuLeft, 'cbp-spmenu-open' );
+				disableOther( 'showLeftPush' );
+			};
+
+			function disableOther( button ) {
+				if( button !== 'showLeftPush' ) {
+					classie.toggle( showLeftPush, 'disabled' );
+				}
+			}
+		</script>
+	<!--scrolling js-->
+	<script src="{% static 'js/jquery.nicescroll.js'}"></script>
+	<script src="{% static 'js/scripts.js'}"></script>
+	<!--//scrolling js-->
+	<!-- Bootstrap Core JavaScript -->
+   <script src="{% static 'js/bootstrap.js'}"> </script>
+</body>
+</html>
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    {% load static %}-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--    <link href="{% static 'style.css' %}" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Members</h1>-->
+
+<!--    <table border="1">-->
+<!--    {% for x in mymembers %}-->
+<!--    <tr>-->
+<!--        <td><a href="update/{{ x.id }}">{{ x.id }}</a></td>-->
+<!--        <td>{{ x.firstname }}</td>-->
+<!--        <td>{{ x.lastname }}</td>-->
+<!--        <td>{{ x.email }}</td>-->
+<!--        <td>{{ x.password }}</td>-->
+<!--        <td>{{ x.phonenumber }}</td>-->
+<!--        <td>{{ x.birthdate }}</td>-->
+<!--        <td>{{ x.disabled }}</td>-->
+<!--        <td><a href="disable/{{ x.id }}">Disable</a></td>-->
+<!--        <td><a href="delete/{{ x.id }}">delete</a></td>-->
+<!--    </tr>-->
+<!--    {% endfor %}-->
+<!--    </table>-->
+
+<!--    <p><a href="add/">Add member</a></p>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--<tr>-->
+<!--    <th scope="row">2</th>-->
+<!--    <td>Aliquam</td>-->
+<!--    <td><span class="label label-warning">New</span></td>-->
+<!--    <td><h5>35% <i class="fa fa-level-up"></i></h5></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--    <th scope="row">3</th>-->
+<!--    <td>Lorem ipsum</td>-->
+<!--    <td><span class="label label-danger">Overdue</span></td>-->
+<!--    <td><h5  class="down">40% <i class="fa fa-level-down"></i></h5></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--    <th scope="row">4</th>-->
+<!--    <td>Aliquam</td>-->
+<!--    <td><span class="label label-info">Out of stock</span></td>-->
+<!--    <td><h5>100% <i class="fa fa-level-up"></i></h5></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--    <th scope="row">5</th>-->
+<!--    <td>Lorem ipsum</td>-->
+<!--    <td><span class="label label-success">In progress</span></td>-->
+<!--    <td><h5 class="down">10% <i class="fa fa-level-down"></i></h5></td>-->
+<!--</tr>-->
+<!--<tr>-->
+<!--    <th scope="row">6</th>-->
+<!--    <td>Aliquam</td>-->
+<!--    <td><span class="label label-warning">New</span></td>-->
+<!--    <td><h5>38% <i class="fa fa-level-up"></i></h5></td>-->
+<!--</tr>-->

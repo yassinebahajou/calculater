@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Add member</h1>
+
+    <form action="addrecord/" method="post">
+    {% csrf_token %}
+    First Name:<br>
+    <input name="first">
+    <br><br>
+    Last Name:<br>
+    <input name="last">
+    <br><br>
+    Email:<br>
+    <input name="mail">
+    <br><br>
+    Password:<br>
+    <input name="pwd">
+    <br><br>
+    Re Password:<br>
+    <input name="rpwd">
+    <br><br>
+    Phone Number:<br>
+    <input name="phone">
+    <br><br>
+    Date of Birth:<br>
+    <input name="bod" type="date">
+    <br><br>
+    Country:<br>
+    <select name="cntry">
+        {% for x in countries %}
+        <option value="{{x.id}}">{{x.cityname}}</option>
+        {% endfor %}
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
